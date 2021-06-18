@@ -89,5 +89,19 @@ namespace Eleva_WebAPI.Data{
             return await query.ToArrayAsync();
         }
 
+        public async Task<Turma> GetTurmaAsyncById(int turmaId)
+        {
+            IQueryable<Turma> query = _context.Turmas;
+
+            query = query.AsNoTracking()
+                         .OrderBy(turma => turma.id)
+                         .Where(turma => turma.id == turmaId);
+
+            return await query.FirstOrDefaultAsync();
+        }
+
+
+        
+
     }
 }

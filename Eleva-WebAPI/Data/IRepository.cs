@@ -16,5 +16,7 @@ namespace Eleva_WebAPI.Data{
         //TURMAS
         Task<Turma[]> GetAllTurmasAsync(bool includeEscola); 
         Task<Turma[]> GetTurmasByEscolaAsync(int escolaId);  
+        Task<Turma> GetTurmaAsyncById(int turmaId);  
+
     }
 }

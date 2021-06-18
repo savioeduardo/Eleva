@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="col-sm-12" *ngIf="turmaSelect">
+      <div class="row">
+          <div class="mr-auto">
+              <app-titulo [titulo]="'Código: '+turmaSelect.id"></app-titulo>
+          </div> 
+      </div>
+      <div class="mt-1">
+          <button class="btn btn-outline-danger" (click)="voltar(turmaSelect)">Voltar</button>
+      </div>
+      
+      <form [formGroup]="turmaForm" (submit)="turmaSubmit()">
+          <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="escolaId" class="form-label">Escola</label>
+                    <select class="form-control" id="escolaId" formControlName="escolaId" placeholder="Selecionar Escola">
+                        <option [ngValue]="null" disabled>Selecionar Escola</option>
+                        <option *ngFor="let escola of escolas" [ngValue]="escola.id">{{escola.nome}}</option>
+                    </select>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="codigo" class="form-label">Código</label>
+                    <input type="text" class="form-control" id="codigo" formControlName="codigo">
+                </div>
+              </div>
+          </div>
+          <div class="form-group">
+              <hr>
+              <button class="btn btn-success">Salvar</button>
+          </div>
+      </form>
+  </div>
+  <div class="col-sm-8" *ngIf="!turmaSelect">
+      <app-titulo [titulo]="titulo"></app-titulo>
+      <div class="row">
+        <div class="col-sm-4">
+            <div class="btn btn-primary" (click)="cadastrar()">Cadastrar</div>
+        </div>
+        </div>
+      <table class="table table-hover">
+          <thead>
+              <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Código</th>
+                  <th scope="col">Escola</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let turma of turmas" style="cursor: pointer;">
+                  <th scope="row">{{turma.id}}</th>
+                  <td>{{turma.codigo}}</td>
+                  <td>{{turma.escola.nome}}</td>
+                  <td><div class="btn btn-primary" (click)="selecionarTurma(turma)">Exibir</div></td>
+                  <td><div class="btn btn-danger" (click)="apagarTurma(turma)">Apagar</div></td>
+              </tr>
+          </tbody>
+      </table>
+  </div>    
+</div>

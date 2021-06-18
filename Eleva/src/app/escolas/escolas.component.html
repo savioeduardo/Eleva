@@ -1,0 +1,119 @@
+<div class="row" *ngIf="escolaSelect">
+    <div class="col-sm-8">
+        <div class="row">
+            <div class="mr-auto">
+                <div *ngIf="escolaSelect.id">
+                    <app-titulo [titulo]="'Código: '+escolaSelect.id"></app-titulo>
+                </div>
+                <div *ngIf="!escolaSelect.id">
+                    <app-titulo [titulo]="'Cadastrar Nova Escola'"></app-titulo>
+                </div>
+            </div> 
+        </div>
+        <div class="mt-1">
+            <button class="btn btn-outline-danger" (click)="voltar(escolaSelect)">Voltar</button>
+        </div>
+        
+        <form [formGroup]="escolaForm" (submit)="escolaSubmit()">
+            <div class="row">
+                <div class="form-group">
+                    <label for="nome" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nome" formControlName="nome">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label for="nome" class="form-label">Endereço</label>
+                        <input type="text" class="form-control" id="endereco" formControlName="endereco">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="nome" class="form-label">Cidade</label>
+                        <input type="text" class="form-control" id="cidade" formControlName="cidade">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="nome" class="form-label">Estado</label>
+                        <select class="form-control" id="estado" formControlName="estado">
+                            <option [ngValue]="null" disabled>Selecionar Estado</option>
+                            <option *ngFor="let estado of estados" [ngValue]="estado.nome">{{estado.nome}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="telefone" class="form-label">Telefone</label>
+                        <input type="text" class="form-control" id="telefone" formControlName="telefone">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <hr>
+                <button class="btn btn-success">Salvar</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-4">
+        <app-titulo [titulo]="'Turmas Cadastradas'"></app-titulo>
+        <div *ngIf="turmasEscola.length > 0">
+            <table class="table table-hover" >
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Código</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let turma of turmasEscola">
+                        <th scope="row">{{turma.id}}</th>
+                        <td>{{turma.codigo}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="turmasEscola.length == 0">
+            Não há turmas cadastradas para essa escola
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="!escolaSelect">
+    <div class="col-sm-12">
+        <app-titulo [titulo]="titulo"></app-titulo>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="btn btn-primary cadastrar" (click)="cadastrar()">Cadastrar</div>
+            </div>
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Endereço</th>
+                    <th scope="col">Cidade</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let escola of escolas">
+                    <th scope="row">{{escola.id}}</th>
+                    <td>{{escola.nome}}</td>
+                    <td>{{escola.endereco}}</td>
+                    <td>{{escola.cidade}}</td>
+                    <td>{{escola.estado}}</td>
+                    <td>{{escola.telefone}}</td>
+                    <td><div class="btn btn-primary" (click)="selecionarEscola(escola)">Exibir</div></td>
+                    <td><div class="btn btn-danger" (click)="apagarEscola(escola)">Apagar</div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>    
+  </div>

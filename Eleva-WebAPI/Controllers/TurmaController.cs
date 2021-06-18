@@ -39,12 +39,28 @@ namespace Eleva_WebAPI.Controllers
             }
         }
 
-        /*[HttpPut("{turmaId}")]
+        [HttpPost]
+        public async Task<IActionResult> post(Turma model){
+            try{
+                _repo.Add(model);
+                if(await _repo.SaveChangesAsync()){
+
+                    return Ok(model);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest($"Erro {ex.Message}");
+            }
+            return BadRequest();
+        }
+
+        [HttpPut("{turmaId}")]
         public async Task<IActionResult> put(int turmaId, Turma model)
         {
             try
             {
-                var turma = await _repo.GetTurmaaAsyncById(turmaId, false);
+                var turma = await _repo.GetTurmaAsyncById(turmaId);
                 if(turma == null) return NotFound();
 
                 _repo.Update(model);
@@ -60,7 +76,29 @@ namespace Eleva_WebAPI.Controllers
             }
 
             return BadRequest();
-        }*/
+        }
+
+        [HttpDelete("{turmaId}")]
+        public async Task<IActionResult> delete(int turmaId)
+        {
+            try
+            {
+                var turma = await _repo.GetTurmaAsyncById(turmaId);
+                if(turma == null) return NotFound();
+                _repo.Delete(turma);
+
+                if(await _repo.SaveChangesAsync())
+                {
+                    return Ok(new {message = "Turma deletada" });
+                }                
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro: {ex.Message}");
+            }
+
+            return BadRequest();
+        }
 
     
     }
