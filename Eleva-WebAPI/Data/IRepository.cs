@@ -10,5 +10,11 @@ namespace Eleva_WebAPI.Data{
         Task<bool> SaveChangesAsync();
 
         //ESCOLAS
+        Task<Escola[]> GetAllEscolasAsync();  
+        Task<Escola> GetEscolaAsyncById(int escolaId, bool includeTurmas);
+
+        //TURMAS
+        Task<Turma[]> GetAllTurmasAsync(bool includeEscola); 
+        Task<Turma[]> GetTurmasByEscolaAsync(int escolaId);  
     }
 }
