@@ -6,8 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { TurmasComponent } from './turmas/turmas.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-  { path: 'dashboard', component: DashboardComponent },
+  { path: '', redirectTo: 'escolas', pathMatch: 'full'},
   { path: 'escolas', component: EscolasComponent },
   { path: 'turmas', component: TurmasComponent },
 ];
